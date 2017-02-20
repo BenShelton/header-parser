@@ -1,2 +1,2 @@
 # header-parser
-A Timestamp Microservice made as part of FreeCodeCamp's coursework
+A Header Parser Microservice made as part of FreeCodeCamp's coursework

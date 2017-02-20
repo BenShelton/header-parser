@@ -4,17 +4,14 @@ const app = express();
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/:id', (req, res) => {
-  var input = Date.parse(req.params.id) || +req.params.id;
-  var d = new Date(input);
+app.get('/whoami', (req, res) => {
+  var lanRe = /;|,/;
+  var softRe = /\((.+?)\)/;
   var output = {
-    "unix": null,
-    "natural": null
+    "ipaddress": req.header('x-forwarded-for'),
+    "language": req.header('accept-language').split(lanRe)[0],
+    "software": softRe.exec(req.header('user-agent'))[1]
   };
-  if (!isNaN(d.getTime())) {
-    output.unix = d.getTime();
-    output.natural = d.toDateString();
-  }
   res.json(output);
 });
 
